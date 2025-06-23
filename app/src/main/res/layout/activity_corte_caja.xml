@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/titleCorteCaja"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Corte de Caja"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textTotalVentas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total de ventas: $0.00"
+        android:textSize="18sp"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textTotalEfectivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total en efectivo: $0.00"
+        android:textSize="18sp"
+        android:paddingBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnMostrarCorte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mostrar corte" />
+
+    <Button
+        android:id="@+id/btnCerrarCaja"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar caja"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

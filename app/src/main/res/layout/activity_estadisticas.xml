@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textTotalVentas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total de ventas: $0.00"
+        android:textSize="20sp"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textProductoMasVendido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Producto más vendido: "
+        android:textSize="20sp"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textTotalProductos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total de productos: 0"
+        android:textSize="20sp"
+        android:paddingBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnActualizarEstadisticas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar estadísticas" />
+
+</LinearLayout>
