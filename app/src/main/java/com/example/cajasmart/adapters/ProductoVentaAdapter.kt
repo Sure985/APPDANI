@@ -1,19 +1,17 @@
 package com.example.cajasmart.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cajasmart.data.Producto
 import com.example.cajasmart.databinding.ItemProductoBinding
 
-class ProductoAdapter(
+class ProductoVentaAdapter(
     private var productos: List<Producto>,
-    private val onEdit: (Producto) -> Unit,
-    private val onDelete: (Producto) -> Unit
-) : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>() {
+    private val onAddToSale: (Producto) -> Unit
+) : RecyclerView.Adapter<ProductoVentaAdapter.ProductoViewHolder>() {
 
-    inner class ProductoViewHolder(val binding: ItemProductoBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ProductoViewHolder(val binding: ItemProductoBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val binding = ItemProductoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,15 +21,10 @@ class ProductoAdapter(
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productos[position]
         holder.binding.tvNombre.text = producto.nombre
-        holder.binding.tvCantidad.text = producto.cantidad.toString()
+        holder.binding.tvCantidad.text = "Disp: ${producto.cantidad}"
         holder.binding.tvPrecio.text = "$${producto.precio}"
-
         holder.itemView.setOnClickListener {
-            onEdit(producto)
-        }
-        holder.itemView.setOnLongClickListener {
-            onDelete(producto)
-            true
+            onAddToSale(producto)
         }
     }
 

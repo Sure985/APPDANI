@@ -1,18 +1,17 @@
 package com.example.cajasmart.data
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface VentaDao {
-    @Query("SELECT * FROM ventas")
-    suspend fun getAll(): List<Venta>
+    @Insert
+    suspend fun insertar(venta: Venta): Long // Regresa el id de la venta
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(venta: Venta)
+    @Query("SELECT * FROM ventas WHERE fecha >= :desde")
+    suspend fun ventasDesde(desde: Long): List<Venta>
 
-    @Update
-    suspend fun update(venta: Venta)
-
-    @Delete
-    suspend fun delete(venta: Venta)
+    @Query("SELECT SUM(total) FROM ventas WHERE fecha >= :desde")
+    suspend fun totalVentasDesde(desde: Long): Double?
 }

@@ -26,14 +26,14 @@ class InventarioViewModel(private val productoDao: ProductoDao): ViewModel() {
         }
     }
 
-    fun actualizar(producto: Producto) {
+    fun actualizarProducto(producto: Producto) {
         viewModelScope.launch {
             productoDao.update(producto)
             cargarProductos()
         }
     }
 
-    fun eliminar(producto: Producto) {
+    fun borrarProducto(producto: Producto) {
         viewModelScope.launch {
             productoDao.delete(producto)
             cargarProductos()

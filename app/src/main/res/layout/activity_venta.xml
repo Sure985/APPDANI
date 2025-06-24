@@ -1,15 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="32dp">
+    android:padding="16dp">
 
+    <!-- Lista de productos para seleccionar -->
     <TextView
-        android:id="@+id/textVenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pantalla de Venta"
-        android:textSize="24sp" />
+        android:text="Seleccionar producto"
+        android:textStyle="bold"
+        android:textSize="18sp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductosVenta"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Productos para vender" />
+
+    <!-- Resumen de productos agregados a la venta -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Venta actual"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerVentaActual"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="Productos en la venta actual" />
+
+    <!-- Total y botón finalizar -->
+    <TextView
+        android:id="@+id/tvTotalVenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: $0.00"
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:gravity="end" />
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <!-- ... (tu RecyclerView de productos y de venta actual) ... -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Con cuánto paga el cliente:"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/etPagoCliente"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="numberDecimal"
+            android:hint="Monto entregado"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/tvCambio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambio: $0.00"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:gravity="end" />
+
+        <Button
+            android:id="@+id/btnFinalizarVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalizar Venta"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
 </LinearLayout>

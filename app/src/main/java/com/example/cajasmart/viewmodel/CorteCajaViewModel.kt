@@ -1,42 +1,62 @@
 package com.example.cajasmart.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.cajasmart.data.Corte
-import com.example.cajasmart.data.CorteDao
+import androidx.lifecycle.*
+import com.example.cajasmart.data.*
 import kotlinx.coroutines.launch
 
-class CorteCajaViewModel(private val corteDao: CorteDao): ViewModel() {
+data class ResumenCorte(
+    val numeroVentas: Int,
+    val total: Double,
+    val productosVendidos: List<ProductoVendido>
+)
 
-    private val _cortes = MutableLiveData<List<Corte>>()
-    val cortes: LiveData<List<Corte>> = _cortes
+class CorteCajaViewModel(
+    private val ventaDao: VentaDao,
+    private val detalleVentaDao: DetalleVentaDao
+) : ViewModel() {
+    private val _resumen = MutableLiveData(ResumenCorte(0, 0.0, emptyList()))
+    val resumen: LiveData<ResumenCorte> = _resumen
 
-    fun cargarCortes() {
+    fun cargarCorte(desde: Long) {
         viewModelScope.launch {
-            _cortes.value = corteDao.getAll()
+            val ventas = ventaDao.ventasDesde(desde)
+            val total = ventas.sumOf { it.total }
+            val productos = detalleVentaDao.productosVendidosDesde(desde)
+            _resumen.postValue(ResumenCorte(ventas.size, total, productos))
         }
     }
 
-    fun insertar(corte: Corte) {
+    // Registrar una venta con productos
+    fun registrarVenta(
+        productos: List<Pair<Producto, Int>>, // Producto y cantidad
+        fecha: Long = System.currentTimeMillis()
+    ) {
         viewModelScope.launch {
-            corteDao.insert(corte)
-            cargarCortes()
+            val totalVenta = productos.sumOf { it.first.precio * it.second }
+            val venta = Venta(total = totalVenta, fecha = fecha)
+            val ventaId = ventaDao.insertar(venta).toInt()
+            productos.forEach { (producto, cantidad) ->
+                val detalle = DetalleVenta(
+                    ventaId = ventaId,
+                    productoId = producto.id,
+                    cantidad = cantidad,
+                    subtotal = producto.precio * cantidad
+                )
+                detalleVentaDao.insertar(detalle)
+            }
         }
     }
+}
 
-    fun actualizar(corte: Corte) {
-        viewModelScope.launch {
-            corteDao.update(corte)
-            cargarCortes()
+class CorteCajaViewModelFactory(
+    private val ventaDao: VentaDao,
+    private val detalleVentaDao: DetalleVentaDao
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(CorteCajaViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return CorteCajaViewModel(ventaDao, detalleVentaDao) as T
         }
-    }
-
-    fun eliminar(corte: Corte) {
-        viewModelScope.launch {
-            corteDao.delete(corte)
-            cargarCortes()
-        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

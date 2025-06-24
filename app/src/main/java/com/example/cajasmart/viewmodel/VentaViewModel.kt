@@ -1,42 +1,37 @@
 package com.example.cajasmart.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.example.cajasmart.data.Venta
 import com.example.cajasmart.data.VentaDao
 import kotlinx.coroutines.launch
 
-class VentaViewModel(private val ventaDao: VentaDao): ViewModel() {
+class VentaViewModel(private val ventaDao: VentaDao) : ViewModel() {
 
-    private val _ventas = MutableLiveData<List<Venta>>()
-    val ventas: LiveData<List<Venta>> = _ventas
+    private val _totalVentas = MutableLiveData<Double>()
+    val totalVentas: LiveData<Double> = _totalVentas
 
-    fun cargarVentas() {
+    fun insertarVenta(venta: Venta, desde: Long) {
         viewModelScope.launch {
-            _ventas.value = ventaDao.getAll()
+            ventaDao.insertar(venta)
+            val total = ventaDao.totalVentasDesde(desde) ?: 0.0
+            _totalVentas.postValue(total)
         }
     }
 
-    fun insertar(venta: Venta) {
+    fun cargarTotalVentasDesde(desde: Long) {
         viewModelScope.launch {
-            ventaDao.insert(venta)
-            cargarVentas()
+            val total = ventaDao.totalVentasDesde(desde) ?: 0.0
+            _totalVentas.postValue(total)
         }
     }
+}
 
-    fun actualizar(venta: Venta) {
-        viewModelScope.launch {
-            ventaDao.update(venta)
-            cargarVentas()
+class VentaViewModelFactory(private val ventaDao: VentaDao) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(VentaViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return VentaViewModel(ventaDao) as T
         }
-    }
-
-    fun eliminar(venta: Venta) {
-        viewModelScope.launch {
-            ventaDao.delete(venta)
-            cargarVentas()
-        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
