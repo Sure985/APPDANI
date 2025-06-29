@@ -1,15 +1,11 @@
 package com.example.cajasmart.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.example.cajasmart.data.Producto
 import com.example.cajasmart.data.ProductoDao
 import kotlinx.coroutines.launch
 
 class InventarioViewModel(private val productoDao: ProductoDao): ViewModel() {
-
     private val _productos = MutableLiveData<List<Producto>>()
     val productos: LiveData<List<Producto>> = _productos
 
@@ -18,7 +14,15 @@ class InventarioViewModel(private val productoDao: ProductoDao): ViewModel() {
             _productos.value = productoDao.getAll()
         }
     }
-
+    fun buscarProductos(query: String) {
+        viewModelScope.launch {
+            if (query.isBlank()) {
+                _productos.value = productoDao.getAll()
+            } else {
+                _productos.value = productoDao.buscarPorNombre("%$query%")
+            }
+        }
+    }
     fun insertar(producto: Producto) {
         viewModelScope.launch {
             productoDao.insert(producto)

@@ -8,5 +8,7 @@ data class Producto(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val nombre: String,
     val cantidad: Int,
-    val precio: Double
+    val precioPaquete: Double,
+    val piezasPaquete: Int
+    
 )

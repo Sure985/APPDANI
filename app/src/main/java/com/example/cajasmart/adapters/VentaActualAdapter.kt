@@ -1,44 +1,80 @@
-package com.example.cajasmart.adapter
+package com.example.cajasmart.adapters
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cajasmart.data.Producto
-import com.example.cajasmart.databinding.ItemProductoVentaBinding
-
-// Modelo auxiliar para la venta actual
-data class ProductoEnVenta(
-    val producto: Producto,
-    var cantidad: Int
-)
+import com.example.cajasmart.R
 
 class VentaActualAdapter(
-    private var productosEnVenta: List<ProductoEnVenta>,
-    private val onRemove: (ProductoEnVenta) -> Unit
-) : RecyclerView.Adapter<VentaActualAdapter.VentaViewHolder>() {
+    private val onRemove: (ProductoEnVenta) -> Unit,
+    private val onPrecioModificado: () -> Unit
+) : RecyclerView.Adapter<VentaActualAdapter.VentaActualViewHolder>() {
 
-    inner class VentaViewHolder(val binding: ItemProductoVentaBinding): RecyclerView.ViewHolder(binding.root)
+    private val productos = mutableListOf<ProductoEnVenta>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentaViewHolder {
-        val binding = ItemProductoVentaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return VentaViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentaActualViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_venta_actual, parent, false)
+        return VentaActualViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: VentaViewHolder, position: Int) {
-        val item = productosEnVenta[position]
-        holder.binding.tvNombreVenta.text = item.producto.nombre
-        holder.binding.tvCantidadVenta.text = "x${item.cantidad}"
-        holder.binding.tvPrecioVenta.text = "$%.2f".format(item.producto.precio * item.cantidad)
+    override fun onBindViewHolder(holder: VentaActualViewHolder, position: Int) {
+        val productoEnVenta = productos[position]
+        holder.tvNombre.text = productoEnVenta.producto.nombre
+        holder.tvCantidad.text = "Cantidad: ${productoEnVenta.cantidad}"
+
+        // Remueve el watcher anterior si existe
+        holder.etPrecio.removeTextChangedListener(holder.textWatcher)
+
+        // Setea el precio en el EditText
+        holder.etPrecio.setText("%.2f".format(productoEnVenta.precioUnitario))
+
+        // Crea un nuevo watcher para actualizar el precio y subtotal
+        holder.textWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val nuevoPrecio = s.toString().toDoubleOrNull()
+                if (nuevoPrecio != null) {
+                    productoEnVenta.precioUnitario = nuevoPrecio
+                    holder.tvSubtotal.text = "Subtotal: \$%.2f".format(nuevoPrecio * productoEnVenta.cantidad)
+                    onPrecioModificado()  // << aquí avisas que hubo cambio para actualizar total
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        }
+
+        // Añade el watcher al EditText
+        holder.etPrecio.addTextChangedListener(holder.textWatcher)
+
+        // Setea el subtotal inicial
+        holder.tvSubtotal.text = "Subtotal: \$%.2f".format(productoEnVenta.precioUnitario * productoEnVenta.cantidad)
+
         holder.itemView.setOnLongClickListener {
-            onRemove(item)
+            onRemove(productoEnVenta)
             true
         }
     }
 
-    override fun getItemCount() = productosEnVenta.size
+    override fun getItemCount() = productos.size
 
     fun actualizarLista(nuevaLista: List<ProductoEnVenta>) {
-        productosEnVenta = nuevaLista
+        productos.clear()
+        productos.addAll(nuevaLista)
         notifyDataSetChanged()
+    }
+
+    class VentaActualViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvNombre: TextView = itemView.findViewById(R.id.tvNombreVenta)
+        val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidadVenta)
+        val etPrecio: EditText = itemView.findViewById(R.id.etPrecioVenta)
+        val tvSubtotal: TextView = itemView.findViewById(R.id.tvSubtotalVenta)
+
+        // Guarda el watcher actual para poder removerlo
+        var textWatcher: TextWatcher? = null
     }
 }

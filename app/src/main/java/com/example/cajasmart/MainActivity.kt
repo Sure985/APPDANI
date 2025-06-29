@@ -22,5 +22,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnCorteCaja.setOnClickListener {
             startActivity(Intent(this, CorteCajaActivity::class.java))
         }
+        binding.btnHistorialCortes.setOnClickListener {
+            startActivity(Intent(this, ListaCortesActivity::class.java))
+        }
     }
 }

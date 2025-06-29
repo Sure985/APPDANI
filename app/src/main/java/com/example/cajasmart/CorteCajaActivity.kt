@@ -9,33 +9,38 @@ import com.example.cajasmart.viewmodel.CorteCajaViewModel
 import com.example.cajasmart.viewmodel.CorteCajaViewModelFactory
 
 class CorteCajaActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityCorteCajaBinding
+
     private val viewModel: CorteCajaViewModel by viewModels {
         CorteCajaViewModelFactory(
             (application as App).db.ventaDao(),
-            (application as App).db.detalleVentaDao()
+            (application as App).db.detalleVentaDao(),
+            (application as App).db.corteDao(),
+            (application as App).db.productoCorteDao()
         )
     }
-
-    private var ultimoCorte: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCorteCajaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.cargarCorte(ultimoCorte)
-
         viewModel.resumen.observe(this) { resumen ->
-            binding.tvVentas.text = "Ventas realizadas: ${resumen.numeroVentas}"
-            binding.tvTotal.text = "Total vendido: $%.2f".format(resumen.total)
+            binding.tvVentasDelDia.text = "Ventas del día: ${resumen.numeroVentas}"
+            binding.tvTotalDelDia.text = "Total vendido: $%.2f".format(resumen.total)
         }
 
-        binding.btnCorte.setOnClickListener {
-            ultimoCorte = System.currentTimeMillis()
-            Toast.makeText(this, "Corte realizado. Listo para nuevo turno.", Toast.LENGTH_LONG).show()
-            viewModel.cargarCorte(ultimoCorte)
+        binding.btnRealizarCorte.setOnClickListener {
+            viewModel.realizarCorte()
+            Toast.makeText(this, "Corte realizado correctamente", Toast.LENGTH_SHORT).show()
+            viewModel.cargarCorteDelDia()  // Recarga el resumen actualizado
         }
+
+        binding.btnLimpiarCorte.setOnClickListener {
+            viewModel.limpiarCorteActual()
+            Toast.makeText(this, "Corte del día eliminado", Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.cargarCorteDelDia()
     }
 }

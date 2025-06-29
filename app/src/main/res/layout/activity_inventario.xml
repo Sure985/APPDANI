@@ -1,45 +1,121 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/fondo2"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etNombre"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Nombre"
-        android:minHeight="48dp"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/etCantidad"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Cantidad"
-        android:minHeight="48dp"
-        android:inputType="number" />
+        <!-- Campo Nombre -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@android:color/holo_blue_dark"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/textoHint">
 
-    <EditText
-        android:id="@+id/etPrecio"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Precio"
-        android:minHeight="48dp"
-        android:inputType="numberDecimal" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
+                android:textColorHint="@color/previewHint"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnAgregar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agregar producto"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp" />
+        <!-- Campo Cantidad (piezas disponibles) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@android:color/holo_blue_dark"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/textoHint">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerInventario"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="Lista de productos del inventario"/>
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad (piezas disponibles)"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/previewHint"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo Precio paquete -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@android:color/holo_blue_dark"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/textoHint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPrecioPaquete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Precio del paquete"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:textColorHint="@color/previewHint"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo Piezas por paquete -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@android:color/holo_blue_dark"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="filled"
+           app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/textoHint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPiezasPaquete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad de piezas por paquete"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/previewHint"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón Agregar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAgregar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Agregar producto"
+            android:textAllCaps="false"
+            app:cornerRadius="24dp"
+            app:backgroundTint="#6200EE"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium" />
+
+        <!-- RecyclerView de Inventario -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerInventario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:contentDescription="Lista de productos del inventario"/>
+
+    </LinearLayout>
+</ScrollView>

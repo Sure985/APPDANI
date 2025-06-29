@@ -1,38 +1,85 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/fondo2">
 
-    <TextView
-        android:text="Corte de Caja"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/tvVentas"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ventas realizadas: 0"
-        android:textSize="18sp"
-        android:layout_marginTop="32dp" />
+        android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/tvTotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total vendido: $0.00"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:text="Corte de Caja"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:id="@+id/btnCorte"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Realizar Corte"
-        android:layout_marginTop="32dp" />
+        <Button
+            android:id="@+id/btnSeleccionarFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Día"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvFechaSeleccionada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoy"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvVentasDelDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ventas del día: 0"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp" />
+
+        <TextView
+            android:id="@+id/tvTotalDelDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total vendido: $0.00"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/tvProductosVendidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Productos vendidos:"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp" />
+
+        <Button
+            android:id="@+id/btnRealizarCorte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realizar Corte" />
+
+        <Button
+            android:id="@+id/btnLimpiarCorte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Limpiar corte del día"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

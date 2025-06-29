@@ -25,4 +25,11 @@
         android:layout_height="wrap_content"
         android:text="Corte de Caja"
         android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnHistorialCortes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Historial de Cortes"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

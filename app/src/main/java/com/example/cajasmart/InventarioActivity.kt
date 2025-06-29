@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cajasmart.adapter.ProductoAdapter
+import com.example.cajasmart.adapters.ProductoAdapter
 import com.example.cajasmart.data.Producto
 import com.example.cajasmart.databinding.ActivityInventarioBinding
 import com.example.cajasmart.viewmodel.InventarioViewModel
@@ -20,8 +20,6 @@ class InventarioActivity : AppCompatActivity() {
     }
 
     private lateinit var adapter: ProductoAdapter
-
-    // Variable para saber si estamos editando un producto
     private var productoEditando: Producto? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +27,13 @@ class InventarioActivity : AppCompatActivity() {
         binding = ActivityInventarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Adapter con las funciones de editar y borrar
         adapter = ProductoAdapter(
             productos = emptyList(),
             onEdit = { producto ->
                 binding.etNombre.setText(producto.nombre)
                 binding.etCantidad.setText(producto.cantidad.toString())
-                binding.etPrecio.setText(producto.precio.toString())
+                binding.etPrecioPaquete.setText(producto.precioPaquete.toString())
+                binding.etPiezasPaquete.setText(producto.piezasPaquete.toString())
                 productoEditando = producto
                 binding.btnAgregar.text = "Editar producto"
             },
@@ -46,37 +44,42 @@ class InventarioActivity : AppCompatActivity() {
         binding.recyclerInventario.layoutManager = LinearLayoutManager(this)
         binding.recyclerInventario.adapter = adapter
 
-        // Observar los productos
         viewModel.productos.observe(this, Observer { productos ->
             adapter.actualizarLista(productos)
         })
 
-        // Cargar productos al iniciar
         viewModel.cargarProductos()
 
-        // Click en agregar o editar
         binding.btnAgregar.setOnClickListener {
             val nombre = binding.etNombre.text.toString()
             val cantidad = binding.etCantidad.text.toString().toIntOrNull() ?: 0
-            val precio = binding.etPrecio.text.toString().toDoubleOrNull() ?: 0.0
+            val precioPaquete = binding.etPrecioPaquete.text.toString().toDoubleOrNull() ?: 0.0
+            val piezasPaquete = binding.etPiezasPaquete.text.toString().toIntOrNull() ?: 1
 
-            if (nombre.isNotBlank()) {
+            if (nombre.isNotBlank() && cantidad > 0 && precioPaquete > 0.0 && piezasPaquete > 0) {
                 if (productoEditando != null) {
                     val productoActualizado = productoEditando!!.copy(
                         nombre = nombre,
                         cantidad = cantidad,
-                        precio = precio
+                        precioPaquete = precioPaquete,
+                        piezasPaquete = piezasPaquete
                     )
                     viewModel.actualizarProducto(productoActualizado)
                     productoEditando = null
                     binding.btnAgregar.text = "Agregar producto"
                 } else {
-                    val producto = Producto(nombre = nombre, cantidad = cantidad, precio = precio)
+                    val producto = Producto(
+                        nombre = nombre,
+                        cantidad = cantidad,
+                        precioPaquete = precioPaquete,
+                        piezasPaquete = piezasPaquete
+                    )
                     viewModel.insertar(producto)
                 }
                 binding.etNombre.text?.clear()
                 binding.etCantidad.text?.clear()
-                binding.etPrecio.text?.clear()
+                binding.etPrecioPaquete.text?.clear()
+                binding.etPiezasPaquete.text?.clear()
             }
         }
     }

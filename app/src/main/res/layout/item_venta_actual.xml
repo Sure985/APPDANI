@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvNombreVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del producto"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvCantidadVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cantidad: 0"
+        android:textAppearance="?attr/textAppearanceBody2"/>
+
+    <EditText
+        android:id="@+id/etPrecioVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Precio"
+        android:text="$0.00"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:maxLines="1"
+        android:minEms="4"
+        android:selectAllOnFocus="true"
+        />
+
+    <TextView
+        android:id="@+id/tvSubtotalVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtotal: $0.00"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textStyle="italic"/>
+</LinearLayout>

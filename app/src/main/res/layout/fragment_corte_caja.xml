@@ -31,7 +31,15 @@
 
     <Button
         android:id="@+id/btnHacerVenta"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrar Venta de Ejemplo"/>
+        android:text="Simular venta"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnLimpiarCorte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Realizar corte del día" />
+
 </LinearLayout>

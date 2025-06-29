@@ -1,87 +1,121 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/black">
 
-    <!-- Lista de productos para seleccionar -->
+    <EditText
+        android:id="@+id/etBuscarProductoVenta"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Buscar producto"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnBackground"
+        android:background="?attr/editTextBackground"
+        android:importantForAccessibility="yes"
+        android:inputType="text" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccionar producto"
+        android:text="Productos disponibles"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerProductosVenta"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Productos para vender" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="?attr/colorSurface"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:contentDescription="Lista de productos disponibles para la venta"
+        android:importantForAccessibility="yes" />
 
-    <!-- Resumen de productos agregados a la venta -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Venta actual"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVentaActual"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:contentDescription="Productos en la venta actual" />
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="?attr/colorSurface"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:contentDescription="Lista de productos agregados a la venta actual"
+        android:importantForAccessibility="yes" />
 
-    <!-- Total y botón finalizar -->
-    <TextView
-        android:id="@+id/tvTotalVenta"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total: $0.00"
-        android:textSize="20sp"
-        android:padding="8dp"
-        android:gravity="end" />
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
-
-        <!-- ... (tu RecyclerView de productos y de venta actual) ... -->
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:paddingVertical="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvTotalVenta"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Con cuánto paga el cliente:"
-            android:layout_marginTop="12dp"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/etPagoCliente"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="numberDecimal"
-            android:hint="Monto entregado"
-            android:minHeight="48dp" />
+            android:layout_weight="1"
+            android:text="Total: $0.00"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvCambio"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cambio: $0.00"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:gravity="end" />
-
-        <Button
-            android:id="@+id/btnFinalizarVenta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Finalizar Venta"
-            android:layout_marginTop="12dp" />
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="16sp"
+            android:layout_marginStart="12dp" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/etPagoCliente"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Pago del cliente"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnBackground"
+        android:background="?attr/editTextBackground"
+        android:importantForAccessibility="yes"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnFinalizarVenta"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Finalizar Venta"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:elevation="4dp" />
+
 </LinearLayout>

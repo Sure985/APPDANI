@@ -1,31 +1,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp">
 
     <TextView
         android:id="@+id/tvNombre"
-        android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/tvCantidad"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="16sp" />
+        android:text="Piezas"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/tvPrecio"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:id="@+id/tvPiezasPaquete"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$0.00"
+        android:text="Piezas por paquete: "
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="2dp"
+        />
+
+    <TextView
+        android:id="@+id/tvPrecioPaquete"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="Precio paquete"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvPrecioSugerido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Precio sugerido"
+        android:textColor="@color/black"
         android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Editar"
+            android:padding="12dp" />
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Eliminar"
+            android:padding="12dp" />
+    </LinearLayout>
 </LinearLayout>

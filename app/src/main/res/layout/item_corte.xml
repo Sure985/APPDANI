@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvFechaCorte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvVentasCorte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ventas"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+    <!-- item_corte.xml -->
+    <TextView
+        android:id="@+id/tvTotalVendido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total vendido: $0.00"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>

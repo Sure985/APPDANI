@@ -9,5 +9,6 @@ data class DetalleVenta(
     val ventaId: Int,
     val productoId: Int,
     val cantidad: Int,
-    val subtotal: Double // cantidad * precio producto
+    val subtotal: Double, // cantidad * precio producto
+    val precioSugerido: Double // <-- agregas este campo aquí
 )
